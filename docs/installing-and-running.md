@@ -217,3 +217,5 @@ If you want quick run your app, you can use following commands:
 Previous: [Introduction](introduction.md)
 
 Next: [Architecture](architecture.md)
+
+npm run migration:generate -- .\src\database\migrations\User

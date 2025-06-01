@@ -42,8 +42,29 @@ const infrastructureDatabaseModule = (databaseConfig() as DatabaseConfig)
     });
 // </database-block>
 
+import { ProductsModule } from './products/products.module';
+
+import { CartsModule } from './carts/carts.module';
+
+import { OrderDetailsModule } from './order-details/order-details.module';
+
+import { OrdersModule } from './orders/orders.module';
+
+import { ProductImagesModule } from './product-images/product-images.module';
+
+import { ProductLinesModule } from './product-lines/product-lines.module';
+
+import { ReviewsModule } from './reviews/reviews.module';
+
 @Module({
   imports: [
+    ReviewsModule,
+    ProductLinesModule,
+    ProductImagesModule,
+    OrdersModule,
+    OrderDetailsModule,
+    CartsModule,
+    ProductsModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [
