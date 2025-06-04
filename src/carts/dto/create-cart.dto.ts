@@ -13,6 +13,7 @@ import {
   ValidateNested,
   IsNotEmptyObject,
   IsOptional,
+  IsNumber,
 } from 'class-validator';
 
 import {
@@ -21,6 +22,14 @@ import {
 } from '@nestjs/swagger';
 
 export class CreateCartDto {
+  @ApiProperty({
+    required: false,
+    type: () => Number,
+  })
+  @IsOptional()
+  @IsNumber()
+  quantity?: number | null;
+
   @ApiProperty({
     required: false,
     type: () => UserDto,

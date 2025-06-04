@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   ManyToOne,
+  Column,
 } from 'typeorm';
 import { EntityRelationalHelper } from '../../../../../utils/relational-entity-helper';
 
@@ -15,6 +16,12 @@ import { EntityRelationalHelper } from '../../../../../utils/relational-entity-h
   name: 'cart',
 })
 export class CartEntity extends EntityRelationalHelper {
+  @Column({
+    nullable: true,
+    type: Number,
+  })
+  quantity?: number | null;
+
   @ManyToOne(() => UserEntity, { eager: true, nullable: true })
   user?: UserEntity | null;
 

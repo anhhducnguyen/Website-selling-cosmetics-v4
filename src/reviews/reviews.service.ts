@@ -1,3 +1,6 @@
+import { UsersService } from '../users/users.service';
+import { User } from '../users/domain/user';
+
 import { ProductsService } from '../products/products.service';
 import { Product } from '../products/domain/product';
 
@@ -16,6 +19,8 @@ import { Review } from './domain/review';
 @Injectable()
 export class ReviewsService {
   constructor(
+    private readonly userService: UsersService,
+
     private readonly productService: ProductsService,
 
     // Dependencies here
@@ -25,6 +30,26 @@ export class ReviewsService {
   async create(createReviewDto: CreateReviewDto) {
     // Do not remove comment below.
     // <creating-property />
+
+    let user: User | null | undefined = undefined;
+
+    if (createReviewDto.user) {
+      const userObject = await this.userService.findById(
+        createReviewDto.user.id,
+      );
+      if (!userObject) {
+        throw new UnprocessableEntityException({
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            user: 'notExists',
+          },
+        });
+      }
+      user = userObject;
+    } else if (createReviewDto.user === null) {
+      user = null;
+    }
+
     let product: Product | null | undefined = undefined;
 
     if (createReviewDto.product) {
@@ -47,6 +72,12 @@ export class ReviewsService {
     return this.reviewRepository.create({
       // Do not remove comment below.
       // <creating-property-payload />
+      rating: createReviewDto.rating,
+
+      reviewText: createReviewDto.reviewText,
+
+      user,
+
       product,
     });
   }
@@ -79,6 +110,26 @@ export class ReviewsService {
   ) {
     // Do not remove comment below.
     // <updating-property />
+
+    let user: User | null | undefined = undefined;
+
+    if (updateReviewDto.user) {
+      const userObject = await this.userService.findById(
+        updateReviewDto.user.id,
+      );
+      if (!userObject) {
+        throw new UnprocessableEntityException({
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            user: 'notExists',
+          },
+        });
+      }
+      user = userObject;
+    } else if (updateReviewDto.user === null) {
+      user = null;
+    }
+
     let product: Product | null | undefined = undefined;
 
     if (updateReviewDto.product) {
@@ -101,6 +152,12 @@ export class ReviewsService {
     return this.reviewRepository.update(id, {
       // Do not remove comment below.
       // <updating-property-payload />
+      rating: updateReviewDto.rating,
+
+      reviewText: updateReviewDto.reviewText,
+
+      user,
+
       product,
     });
   }

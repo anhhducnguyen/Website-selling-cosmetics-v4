@@ -1,3 +1,5 @@
+import { UserEntity } from '../../../../../users/infrastructure/persistence/relational/entities/user.entity';
+
 import { ProductEntity } from '../../../../../products/infrastructure/persistence/relational/entities/product.entity';
 
 import {
@@ -6,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   ManyToOne,
+  Column,
 } from 'typeorm';
 import { EntityRelationalHelper } from '../../../../../utils/relational-entity-helper';
 
@@ -13,6 +16,21 @@ import { EntityRelationalHelper } from '../../../../../utils/relational-entity-h
   name: 'review',
 })
 export class ReviewEntity extends EntityRelationalHelper {
+  @Column({
+    nullable: true,
+    type: Number,
+  })
+  rating?: number | null;
+
+  @Column({
+    nullable: true,
+    type: String,
+  })
+  reviewText?: string | null;
+
+  @ManyToOne(() => UserEntity, { eager: true, nullable: true })
+  user?: UserEntity | null;
+
   @ManyToOne(() => ProductEntity, { eager: true, nullable: true })
   product?: ProductEntity | null;
 

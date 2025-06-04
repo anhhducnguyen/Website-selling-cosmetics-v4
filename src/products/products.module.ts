@@ -1,3 +1,4 @@
+import { ProductLinesModule } from '../product-lines/product-lines.module';
 import {
   // do not remove this comment
   Module,
@@ -8,6 +9,8 @@ import { RelationalProductPersistenceModule } from './infrastructure/persistence
 
 @Module({
   imports: [
+    ProductLinesModule,
+
     // do not remove this comment
     RelationalProductPersistenceModule,
   ],

@@ -49,14 +49,19 @@ const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig)
           },
           storage: diskStorage({
             destination: './files',
+            // filename: (request, file, callback) => {
+            //   callback(
+            //     null,
+            //     `${randomStringGenerator()}.${file.originalname
+            //       .split('.')
+            //       .pop()
+            //       ?.toLowerCase()}`,
+            //   );
+            // },
             filename: (request, file, callback) => {
-              callback(
-                null,
-                `${randomStringGenerator()}.${file.originalname
-                  .split('.')
-                  .pop()
-                  ?.toLowerCase()}`,
-              );
+              const fileExt = file.originalname.split('.').pop()?.toLowerCase();
+              const fileName = `${randomStringGenerator()}.${fileExt}`;
+              callback(null, fileName);
             },
           }),
           limits: {

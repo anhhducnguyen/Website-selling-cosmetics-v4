@@ -4,6 +4,12 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class Cart {
   @ApiProperty({
+    type: () => Number,
+    nullable: true,
+  })
+  quantity?: number | null;
+
+  @ApiProperty({
     type: () => User,
     nullable: true,
   })

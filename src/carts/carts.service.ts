@@ -30,6 +30,7 @@ export class CartsService {
   async create(createCartDto: CreateCartDto) {
     // Do not remove comment below.
     // <creating-property />
+
     let user: User | null | undefined = undefined;
 
     if (createCartDto.user) {
@@ -69,6 +70,8 @@ export class CartsService {
     return this.cartRepository.create({
       // Do not remove comment below.
       // <creating-property-payload />
+      quantity: createCartDto.quantity,
+
       user,
 
       product,
@@ -103,6 +106,7 @@ export class CartsService {
   ) {
     // Do not remove comment below.
     // <updating-property />
+
     let user: User | null | undefined = undefined;
 
     if (updateCartDto.user) {
@@ -142,6 +146,8 @@ export class CartsService {
     return this.cartRepository.update(id, {
       // Do not remove comment below.
       // <updating-property-payload />
+      quantity: updateCartDto.quantity,
+
       user,
 
       product,

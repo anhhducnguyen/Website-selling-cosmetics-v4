@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
+  // UseGuards,
   Query,
 } from '@nestjs/common';
 import { ProductImagesService } from './product-images.service';
@@ -20,7 +20,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ProductImage } from './domain/product-image';
-import { AuthGuard } from '@nestjs/passport';
+// import { AuthGuard } from '@nestjs/passport';
 import {
   InfinityPaginationResponse,
   InfinityPaginationResponseDto,
@@ -30,7 +30,7 @@ import { FindAllProductImagesDto } from './dto/find-all-product-images.dto';
 
 @ApiTags('Productimages')
 @ApiBearerAuth()
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 @Controller({
   path: 'product-images',
   version: '1',
@@ -69,7 +69,52 @@ export class ProductImagesController {
       { page, limit },
     );
   }
+  // @Get()
+  // async findAll(
+  //   @Query() query: FindAllProductImagesDto,
+  // ): Promise<InfinityPaginationResponseDto<any>> {
+  //   const page = query?.page ?? 1;
+  //   let limit = query?.limit ?? 10;
+  //   if (limit > 50) {
+  //     limit = 50;
+  //   }
 
+  //   const productImages = await this.productImagesService.findAllWithPagination({
+  //     paginationOptions: { page, limit },
+  //   });
+
+  //   // Nhóm ảnh theo product.id
+  //   const productMap = new Map<string, any>();
+
+  //   for (const image of productImages) {
+  //     const { id, path, createdAt, updatedAt, product } = image;
+
+  //     if (!product) continue;
+
+  //     const productKey = product.id;
+  //     const { productLine, ...productRest } = product;
+
+  //     if (!productMap.has(productKey)) {
+  //       productMap.set(productKey, {
+  //         ...productRest,
+  //         line: productLine,
+  //         images: [],
+  //       });
+  //     }
+
+  //     const productData = productMap.get(productKey);
+  //     productData.images.push({
+  //       id,
+  //       url: path, // đổi 'path' thành 'url' nếu bạn muốn theo chuẩn cũ
+  //       createdAt,
+  //       updatedAt,
+  //     });
+  //   }
+
+  //   const products = Array.from(productMap.values());
+
+  //   return infinityPagination(products, { page, limit });
+  // }
   @Get(':id')
   @ApiParam({
     name: 'id',

@@ -33,6 +33,7 @@ export class ProductImageRelationalRepository
     const entities = await this.productImageRepository.find({
       skip: (paginationOptions.page - 1) * paginationOptions.limit,
       take: paginationOptions.limit,
+      relations: ['product'],
     });
 
     return entities.map((entity) => ProductImageMapper.toDomain(entity));

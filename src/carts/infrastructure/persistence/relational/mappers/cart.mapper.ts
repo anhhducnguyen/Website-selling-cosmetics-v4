@@ -1,4 +1,5 @@
 import { Cart } from '../../../../domain/cart';
+
 import { UserMapper } from '../../../../../users/infrastructure/persistence/relational/mappers/user.mapper';
 
 import { ProductMapper } from '../../../../../products/infrastructure/persistence/relational/mappers/product.mapper';
@@ -8,6 +9,8 @@ import { CartEntity } from '../entities/cart.entity';
 export class CartMapper {
   static toDomain(raw: CartEntity): Cart {
     const domainEntity = new Cart();
+    domainEntity.quantity = raw.quantity;
+
     if (raw.user) {
       domainEntity.user = UserMapper.toDomain(raw.user);
     } else if (raw.user === null) {
@@ -29,6 +32,8 @@ export class CartMapper {
 
   static toPersistence(domainEntity: Cart): CartEntity {
     const persistenceEntity = new CartEntity();
+    persistenceEntity.quantity = domainEntity.quantity;
+
     if (domainEntity.user) {
       persistenceEntity.user = UserMapper.toPersistence(domainEntity.user);
     } else if (domainEntity.user === null) {

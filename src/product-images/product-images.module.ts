@@ -1,3 +1,4 @@
+import { ProductsModule } from '../products/products.module';
 import {
   // do not remove this comment
   Module,
@@ -8,6 +9,8 @@ import { RelationalProductImagePersistenceModule } from './infrastructure/persis
 
 @Module({
   imports: [
+    ProductsModule,
+
     // do not remove this comment
     RelationalProductImagePersistenceModule,
   ],

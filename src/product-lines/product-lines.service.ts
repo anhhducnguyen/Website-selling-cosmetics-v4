@@ -15,16 +15,16 @@ export class ProductLinesService {
     private readonly productLineRepository: ProductLineRepository,
   ) {}
 
-  async create(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    createProductLineDto: CreateProductLineDto,
-  ) {
+  async create(createProductLineDto: CreateProductLineDto) {
     // Do not remove comment below.
     // <creating-property />
 
     return this.productLineRepository.create({
       // Do not remove comment below.
       // <creating-property-payload />
+      name: createProductLineDto.name,
+
+      description: createProductLineDto.description,
     });
   }
 
@@ -51,7 +51,7 @@ export class ProductLinesService {
 
   async update(
     id: ProductLine['id'],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     updateProductLineDto: UpdateProductLineDto,
   ) {
     // Do not remove comment below.
@@ -60,6 +60,9 @@ export class ProductLinesService {
     return this.productLineRepository.update(id, {
       // Do not remove comment below.
       // <updating-property-payload />
+      name: updateProductLineDto.name,
+
+      description: updateProductLineDto.description,
     });
   }
 

@@ -26,11 +26,18 @@ export class FilesLocalService {
       });
     }
 
+    // return {
+    //   file: await this.fileRepository.create({
+    //     path: `/${this.configService.get('app.apiPrefix', {
+    //       infer: true,
+    //     })}/v1/${file.path}`,
+    //   }),
+    // };
     return {
       file: await this.fileRepository.create({
         path: `/${this.configService.get('app.apiPrefix', {
           infer: true,
-        })}/v1/${file.path}`,
+        })}/v1/files/${file.filename}`, // ✅ chuẩn định dạng URL
       }),
     };
   }
