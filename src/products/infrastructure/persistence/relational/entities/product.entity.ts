@@ -40,7 +40,10 @@ export class ProductEntity extends EntityRelationalHelper {
   })
   price?: number | null;
 
-  @ManyToOne(() => ProductLineEntity, { eager: true, nullable: true })
+  @ManyToOne(() => ProductLineEntity, {
+    // eager: true,
+    nullable: true,
+  })
   productLine?: ProductLineEntity | null;
 
   @OneToMany(() => ProductImageEntity, (image) => image.product, {

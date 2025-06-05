@@ -2,6 +2,8 @@ import { ProductLine } from '../../../../domain/product-line';
 
 import { ProductLineEntity } from '../entities/product-line.entity';
 
+import { ProductMapper } from '../../../../../products/infrastructure/persistence/relational/mappers/product.mapper';
+
 export class ProductLineMapper {
   static toDomain(raw: ProductLineEntity): ProductLine {
     const domainEntity = new ProductLine();
@@ -12,6 +14,19 @@ export class ProductLineMapper {
     domainEntity.id = raw.id;
     domainEntity.createdAt = raw.createdAt;
     domainEntity.updatedAt = raw.updatedAt;
+
+    if (raw.products) {
+      domainEntity.products = raw.products.map((product) =>
+        ProductMapper.toDomain(product),
+      );
+    }
+
+    // if (raw.products) {
+    //   domainEntity.products = raw.products.map((product) => ({
+    //     id: product.id,
+    //     name: product.name ?? null,
+    //   }));
+    // }
 
     return domainEntity;
   }
