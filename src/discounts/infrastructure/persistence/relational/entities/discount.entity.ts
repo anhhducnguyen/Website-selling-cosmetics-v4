@@ -17,8 +17,8 @@ import { EntityRelationalHelper } from '../../../../../utils/relational-entity-h
   name: 'discount',
 })
 export class DiscountEntity extends EntityRelationalHelper {
-  // @ManyToMany(() => ProductLineEntity, { 
-  //   eager: true, 
+  // @ManyToMany(() => ProductLineEntity, {
+  //   eager: true,
   //   nullable: true })
   // @JoinTable()
   // productLine?: ProductLineEntity[] | null;
@@ -28,8 +28,6 @@ export class DiscountEntity extends EntityRelationalHelper {
   })
   @JoinTable()
   productLine?: ProductLineEntity[] | null;
-
-
 
   @ManyToMany(() => ProductEntity, { eager: true, nullable: true })
   @JoinTable()

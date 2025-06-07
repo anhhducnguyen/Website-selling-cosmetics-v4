@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
   Column,
   OneToMany,
-  ManyToMany
+  ManyToMany,
 } from 'typeorm';
 import { EntityRelationalHelper } from '../../../../../utils/relational-entity-helper';
 import { ProductEntity } from '../../../../../products/infrastructure/persistence/relational/entities/product.entity';
@@ -38,8 +38,6 @@ export class ProductLineEntity extends EntityRelationalHelper {
     nullable: true,
   })
   discounts?: DiscountEntity[] | null;
-
-
 
   @PrimaryGeneratedColumn('uuid')
   id: string;

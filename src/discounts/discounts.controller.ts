@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
+  // UseGuards,
   Query,
 } from '@nestjs/common';
 import { DiscountsService } from './discounts.service';
@@ -18,10 +18,10 @@ import {
   ApiOkResponse,
   ApiParam,
   ApiTags,
-  ApiOperation
+  ApiOperation,
 } from '@nestjs/swagger';
 import { Discount } from './domain/discount';
-import { AuthGuard } from '@nestjs/passport';
+// import { AuthGuard } from '@nestjs/passport';
 import {
   InfinityPaginationResponse,
   InfinityPaginationResponseDto,
@@ -41,7 +41,6 @@ export class DiscountsController {
 
   @Post()
   @ApiOperation({ summary: 'Tạo một chương trình chiết khấu mới' })
-
   @ApiCreatedResponse({
     type: Discount,
   })

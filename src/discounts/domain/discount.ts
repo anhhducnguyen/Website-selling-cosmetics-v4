@@ -1,7 +1,7 @@
 import { ProductLine } from '../../product-lines/domain/product-line';
 import { Product } from '../../products/domain/product';
 import { ApiProperty } from '@nestjs/swagger';
-import { ProductIdDto } from '../dto/product-id.dto';
+// import { ProductIdDto } from '../dto/product-id.dto';
 
 export class Discount {
   @ApiProperty({

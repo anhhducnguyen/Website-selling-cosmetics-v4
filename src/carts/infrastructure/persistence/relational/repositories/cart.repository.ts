@@ -13,7 +13,7 @@ export class CartRelationalRepository implements CartRepository {
   constructor(
     @InjectRepository(CartEntity)
     private readonly cartRepository: Repository<CartEntity>,
-  ) { }
+  ) {}
 
   async create(data: Cart): Promise<Cart> {
     if (!data.user?.id || !data.product?.id) {
@@ -39,7 +39,9 @@ export class CartRelationalRepository implements CartRepository {
     }
 
     // Nếu chưa có thì tạo mới
-    const newEntity = this.cartRepository.create(CartMapper.toPersistence(data));
+    const newEntity = this.cartRepository.create(
+      CartMapper.toPersistence(data),
+    );
     const saved = await this.cartRepository.save(newEntity);
     return CartMapper.toDomain(saved);
   }

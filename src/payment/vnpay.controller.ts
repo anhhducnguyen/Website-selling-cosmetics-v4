@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Post,
-  Get,
-  Query,
-  HttpStatus,
-} from '@nestjs/common';
+import { Controller, Post, Get, Query, HttpStatus } from '@nestjs/common';
 import {
   VNPay,
   ignoreLogger,
@@ -62,7 +56,7 @@ export class VnpayController {
   }
 
   @Get('return')
-  async paymentReturn(@Query() query: Record<string, string>) {
+  paymentReturn(@Query() query: Record<string, string>) {
     const isValid = this.vnpay.verifyReturnUrl(query as ReturnQueryFromVNPay);
 
     if (isValid) {
