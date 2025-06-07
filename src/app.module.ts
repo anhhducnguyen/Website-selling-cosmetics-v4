@@ -56,8 +56,15 @@ import { ProductLinesModule } from './product-lines/product-lines.module';
 
 import { ReviewsModule } from './reviews/reviews.module';
 
+import { DiscountsModule } from './discounts/discounts.module';
+
+import { PaymentModule } from './payment/payment.module';
+
+
 @Module({
   imports: [
+    PaymentModule,
+    DiscountsModule,
     ReviewsModule,
     ProductLinesModule,
     ProductImagesModule,

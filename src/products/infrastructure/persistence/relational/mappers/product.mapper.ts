@@ -9,6 +9,8 @@ import { ProductImageMapper } from '../../../../../product-images/infrastructure
 export class ProductMapper {
   static toDomain(raw: ProductEntity): Product {
     const domainEntity = new Product();
+    domainEntity.id = raw.id;
+
     domainEntity.name = raw.name;
 
     domainEntity.description = raw.description;
@@ -29,9 +31,8 @@ export class ProductMapper {
       );
     }
 
-    domainEntity.id = raw.id;
-    domainEntity.createdAt = raw.createdAt;
-    domainEntity.updatedAt = raw.updatedAt;
+    // domainEntity.createdAt = raw.createdAt;
+    // domainEntity.updatedAt = raw.updatedAt;
 
     return domainEntity;
   }

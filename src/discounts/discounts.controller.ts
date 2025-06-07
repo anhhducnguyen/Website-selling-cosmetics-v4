@@ -9,50 +9,53 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common';
-import { CartsService } from './carts.service';
-import { CreateCartDto } from './dto/create-cart.dto';
-import { UpdateCartDto } from './dto/update-cart.dto';
+import { DiscountsService } from './discounts.service';
+import { CreateDiscountDto } from './dto/create-discount.dto';
+import { UpdateDiscountDto } from './dto/update-discount.dto';
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiOkResponse,
   ApiParam,
   ApiTags,
+  ApiOperation
 } from '@nestjs/swagger';
-import { Cart } from './domain/cart';
+import { Discount } from './domain/discount';
 import { AuthGuard } from '@nestjs/passport';
 import {
   InfinityPaginationResponse,
   InfinityPaginationResponseDto,
 } from '../utils/dto/infinity-pagination-response.dto';
 import { infinityPagination } from '../utils/infinity-pagination';
-import { FindAllCartsDto } from './dto/find-all-carts.dto';
+import { FindAllDiscountsDto } from './dto/find-all-discounts.dto';
 
-@ApiTags('Carts')
+@ApiTags('Discounts')
 @ApiBearerAuth()
 // @UseGuards(AuthGuard('jwt'))
 @Controller({
-  path: 'carts',
+  path: 'discounts',
   version: '1',
 })
-export class CartsController {
-  constructor(private readonly cartsService: CartsService) {}
+export class DiscountsController {
+  constructor(private readonly discountsService: DiscountsService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Tạo một chương trình chiết khấu mới' })
+
   @ApiCreatedResponse({
-    type: Cart,
+    type: Discount,
   })
-  create(@Body() createCartDto: CreateCartDto) {
-    return this.cartsService.create(createCartDto);
+  create(@Body() createDiscountDto: CreateDiscountDto) {
+    return this.discountsService.create(createDiscountDto);
   }
 
   @Get()
   @ApiOkResponse({
-    type: InfinityPaginationResponse(Cart),
+    type: InfinityPaginationResponse(Discount),
   })
   async findAll(
-    @Query() query: FindAllCartsDto,
-  ): Promise<InfinityPaginationResponseDto<Cart>> {
+    @Query() query: FindAllDiscountsDto,
+  ): Promise<InfinityPaginationResponseDto<Discount>> {
     const page = query?.page ?? 1;
     let limit = query?.limit ?? 10;
     if (limit > 50) {
@@ -60,7 +63,7 @@ export class CartsController {
     }
 
     return infinityPagination(
-      await this.cartsService.findAllWithPagination({
+      await this.discountsService.findAllWithPagination({
         paginationOptions: {
           page,
           limit,
@@ -77,10 +80,10 @@ export class CartsController {
     required: true,
   })
   @ApiOkResponse({
-    type: Cart,
+    type: Discount,
   })
   findById(@Param('id') id: string) {
-    return this.cartsService.findById(id);
+    return this.discountsService.findById(id);
   }
 
   @Patch(':id')
@@ -90,10 +93,13 @@ export class CartsController {
     required: true,
   })
   @ApiOkResponse({
-    type: Cart,
+    type: Discount,
   })
-  update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
-    return this.cartsService.update(id, updateCartDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateDiscountDto: UpdateDiscountDto,
+  ) {
+    return this.discountsService.update(id, updateDiscountDto);
   }
 
   @Delete(':id')
@@ -103,6 +109,6 @@ export class CartsController {
     required: true,
   })
   remove(@Param('id') id: string) {
-    return this.cartsService.remove(id);
+    return this.discountsService.remove(id);
   }
 }

@@ -16,8 +16,8 @@ export class ProductImageMapper {
     }
 
     domainEntity.id = raw.id;
-    domainEntity.createdAt = raw.createdAt;
-    domainEntity.updatedAt = raw.updatedAt;
+    // domainEntity.createdAt = raw.createdAt;
+    // domainEntity.updatedAt = raw.updatedAt;
 
     return domainEntity;
   }

@@ -13,15 +13,44 @@ export class CartRelationalRepository implements CartRepository {
   constructor(
     @InjectRepository(CartEntity)
     private readonly cartRepository: Repository<CartEntity>,
-  ) {}
+  ) { }
 
   async create(data: Cart): Promise<Cart> {
-    const persistenceModel = CartMapper.toPersistence(data);
-    const newEntity = await this.cartRepository.save(
-      this.cartRepository.create(persistenceModel),
-    );
-    return CartMapper.toDomain(newEntity);
+    if (!data.user?.id || !data.product?.id) {
+      throw new Error('User ID and Product ID are required.');
+    }
+
+    // Ép kiểu cho đúng định nghĩa entity (nếu id là string thì không cần ép)
+    const userId = data.user.id;
+    const productId = data.product.id;
+
+    const existing = await this.cartRepository.findOne({
+      where: {
+        user: { id: userId as number }, // hoặc ép kiểu về string nếu cần
+        product: { id: productId as string },
+      },
+      relations: ['user', 'product'], // đảm bảo quan hệ được lấy đầy đủ (tuỳ theo cấu hình eager)
+    });
+
+    if (existing) {
+      existing.quantity = (existing.quantity || 0) + (data.quantity || 1);
+      const updated = await this.cartRepository.save(existing);
+      return CartMapper.toDomain(updated);
+    }
+
+    // Nếu chưa có thì tạo mới
+    const newEntity = this.cartRepository.create(CartMapper.toPersistence(data));
+    const saved = await this.cartRepository.save(newEntity);
+    return CartMapper.toDomain(saved);
   }
+
+  // async create(data: Cart): Promise<Cart> {
+  //   const persistenceModel = CartMapper.toPersistence(data);
+  //   const newEntity = await this.cartRepository.save(
+  //     this.cartRepository.create(persistenceModel),
+  //   );
+  //   return CartMapper.toDomain(newEntity);
+  // }
 
   async findAllWithPagination({
     paginationOptions,

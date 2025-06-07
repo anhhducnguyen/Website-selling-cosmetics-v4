@@ -2,6 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { Product } from '../../products/domain/product';
 
+import { Discount } from '../../discounts/domain/discount';
+
 export class ProductLine {
   @ApiProperty({
     type: String,
@@ -25,6 +27,12 @@ export class ProductLine {
   //   id: string;
   //   name?: string | null;
   // }[] | null;
+
+  @ApiProperty({
+    type: () => [Discount],
+    nullable: true,
+  })
+  discounts?: Discount[] | null;
 
   @ApiProperty()
   createdAt: Date;

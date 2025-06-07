@@ -5,9 +5,11 @@ import {
   UpdateDateColumn,
   Column,
   OneToMany,
+  ManyToMany
 } from 'typeorm';
 import { EntityRelationalHelper } from '../../../../../utils/relational-entity-helper';
 import { ProductEntity } from '../../../../../products/infrastructure/persistence/relational/entities/product.entity';
+import { DiscountEntity } from '../../../../../discounts/infrastructure/persistence/relational/entities/discount.entity';
 
 @Entity({
   name: 'product_line',
@@ -30,6 +32,14 @@ export class ProductLineEntity extends EntityRelationalHelper {
     nullable: true,
   })
   products?: ProductEntity[] | null;
+
+  @ManyToMany(() => DiscountEntity, (discount) => discount.productLine, {
+    eager: true,
+    nullable: true,
+  })
+  discounts?: DiscountEntity[] | null;
+
+
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
