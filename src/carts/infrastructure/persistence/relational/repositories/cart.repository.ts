@@ -107,4 +107,15 @@ export class CartRelationalRepository implements CartRepository {
   async remove(id: Cart['id']): Promise<void> {
     await this.cartRepository.delete(id);
   }
+
+  async countTotalQuantityByUser(userId: number): Promise<number> {
+    console.log('Hello');
+    const result = await this.cartRepository
+      .createQueryBuilder('cart')
+      .select('SUM(cart.quantity)', 'total')
+      .where('cart.userId = :userId', { userId })
+      .getRawOne();
+
+    return Number(result.total) || 0;
+  }
 }

@@ -30,6 +30,7 @@ export class ProductLineEntity extends EntityRelationalHelper {
   @OneToMany(() => ProductEntity, (product) => product.productLine, {
     eager: true,
     nullable: true,
+    cascade: true,
   })
   products?: ProductEntity[] | null;
 

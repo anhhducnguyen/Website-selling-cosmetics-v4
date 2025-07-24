@@ -21,6 +21,7 @@ export class ProductImageEntity extends EntityRelationalHelper {
 
   @ManyToOne(() => ProductEntity, {
     nullable: true,
+    onDelete: 'CASCADE',
   })
   product?: ProductEntity | null;
 

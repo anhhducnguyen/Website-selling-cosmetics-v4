@@ -43,12 +43,14 @@ export class ProductEntity extends EntityRelationalHelper {
   @ManyToOne(() => ProductLineEntity, {
     // eager: true,
     nullable: true,
+    onDelete: 'CASCADE',
   })
   productLine?: ProductLineEntity | null;
 
   @OneToMany(() => ProductImageEntity, (image) => image.product, {
     nullable: true,
     eager: true,
+    cascade: true,
   })
   productImages?: ProductImageEntity[];
 

@@ -25,7 +25,11 @@ export class CartEntity extends EntityRelationalHelper {
   @ManyToOne(() => UserEntity, { eager: true, nullable: true })
   user?: UserEntity | null;
 
-  @ManyToOne(() => ProductEntity, { eager: true, nullable: true })
+  @ManyToOne(() => ProductEntity, {
+    eager: true,
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
   product?: ProductEntity | null;
 
   @PrimaryGeneratedColumn('uuid')

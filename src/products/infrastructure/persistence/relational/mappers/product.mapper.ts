@@ -1,6 +1,6 @@
 import { Product } from '../../../../domain/product';
 
-// import { ProductLineMapper } from '../../../../../product-lines/infrastructure/persistence/relational/mappers/product-line.mapper';
+import { ProductLineMapper } from '../../../../../product-lines/infrastructure/persistence/relational/mappers/product-line.mapper';
 
 import { ProductEntity } from '../entities/product.entity';
 
@@ -47,13 +47,13 @@ export class ProductMapper {
 
     persistenceEntity.price = domainEntity.price;
 
-    // if (domainEntity.productLine) {
-    //   persistenceEntity.productLine = ProductLineMapper.toPersistence(
-    //     domainEntity.productLine,
-    //   );
-    // } else if (domainEntity.productLine === null) {
-    //   persistenceEntity.productLine = null;
-    // }
+    if (domainEntity.productLine) {
+      persistenceEntity.productLine = ProductLineMapper.toPersistence(
+        domainEntity.productLine,
+      );
+    } else if (domainEntity.productLine === null) {
+      persistenceEntity.productLine = null;
+    }
 
     if (domainEntity.id) {
       persistenceEntity.id = domainEntity.id;

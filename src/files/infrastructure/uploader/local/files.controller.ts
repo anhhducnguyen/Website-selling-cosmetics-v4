@@ -5,7 +5,7 @@ import {
   Post,
   Response,
   UploadedFile,
-  UseGuards,
+  // UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -17,7 +17,7 @@ import {
   ApiExcludeEndpoint,
   ApiTags,
 } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+// import { AuthGuard } from '@nestjs/passport';
 import { FilesLocalService } from './files.service';
 import { FileResponseDto } from './dto/file-response.dto';
 
@@ -33,7 +33,7 @@ export class FilesLocalController {
     type: FileResponseDto,
   })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   @Post('upload')
   @ApiConsumes('multipart/form-data')
   @ApiBody({

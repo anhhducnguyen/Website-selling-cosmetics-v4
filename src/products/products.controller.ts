@@ -43,6 +43,7 @@ export class ProductsController {
     type: Product,
   })
   create(@Body() createProductDto: CreateProductDto) {
+    console.log('Data received from frontend:', createProductDto);
     return this.productsService.create(createProductDto);
   }
 

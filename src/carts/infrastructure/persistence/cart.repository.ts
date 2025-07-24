@@ -24,4 +24,6 @@ export abstract class CartRepository {
   ): Promise<Cart | null>;
 
   abstract remove(id: Cart['id']): Promise<void>;
+
+  abstract countTotalQuantityByUser(userId: number): Promise<number>;
 }

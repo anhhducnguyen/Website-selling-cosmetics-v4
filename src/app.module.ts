@@ -28,6 +28,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MongooseConfigService } from './database/mongoose-config.service';
 import { DatabaseConfig } from './database/config/database-config.type';
 
+// import { ProductLinesService } from './product-lines/product-lines.service';
+
 // <database-block>
 const infrastructureDatabaseModule = (databaseConfig() as DatabaseConfig)
   .isDocumentDatabase
@@ -71,6 +73,7 @@ import { PaymentModule } from './payment/payment.module';
     OrderDetailsModule,
     CartsModule,
     ProductsModule,
+    // CacheModule.register(redisCacheConfig),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [
@@ -83,6 +86,7 @@ import { PaymentModule } from './payment/payment.module';
         googleConfig,
         appleConfig,
       ],
+
       envFilePath: ['.env'],
     }),
     infrastructureDatabaseModule,
@@ -120,5 +124,7 @@ import { PaymentModule } from './payment/payment.module';
     MailerModule,
     HomeModule,
   ],
+  // controllers: [AppController],
+  // providers: [AppService, RedisTestService],
 })
 export class AppModule {}

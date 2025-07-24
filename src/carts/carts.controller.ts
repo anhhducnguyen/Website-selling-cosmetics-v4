@@ -70,6 +70,25 @@ export class CartsController {
     );
   }
 
+  @Get('total-quantity')
+  @ApiOkResponse({
+    description: 'Tổng số lượng tất cả sản phẩm trong carts',
+    schema: {
+      type: 'object',
+      properties: {
+        total: { type: 'number' },
+      },
+    },
+  })
+  getTotalQuantity() {
+    // console.log("Route /total-quantity được gọi");
+    // return { message: "Hello world" };
+
+    return this.cartsService
+      .countTotalQuantityByUser()
+      .then((total) => ({ total }));
+  }
+
   @Get(':id')
   @ApiParam({
     name: 'id',

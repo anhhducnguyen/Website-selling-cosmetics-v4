@@ -157,4 +157,8 @@ export class CartsService {
   remove(id: Cart['id']) {
     return this.cartRepository.remove(id);
   }
+
+  async countTotalQuantityByUser(): Promise<number> {
+    return this.cartRepository.countTotalQuantityByUser(2);
+  }
 }

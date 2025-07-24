@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
+  // UseGuards,
   Query,
 } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
@@ -20,7 +20,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Review } from './domain/review';
-import { AuthGuard } from '@nestjs/passport';
+// import { AuthGuard } from '@nestjs/passport';
 import {
   InfinityPaginationResponse,
   InfinityPaginationResponseDto,
@@ -30,7 +30,7 @@ import { FindAllReviewsDto } from './dto/find-all-reviews.dto';
 
 @ApiTags('Reviews')
 @ApiBearerAuth()
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 @Controller({
   path: 'reviews',
   version: '1',
