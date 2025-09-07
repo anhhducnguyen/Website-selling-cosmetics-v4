@@ -20,6 +20,8 @@ import {
   ApiOkResponse,
   ApiParam,
   ApiTags,
+  ApiOperation,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { Roles } from '../roles/roles.decorator';
 import { RoleEnum } from '../roles/roles.enum';
@@ -66,6 +68,39 @@ export class UsersController {
     groups: ['admin'],
   })
   @Get()
+  @ApiOperation({ summary: 'Lấy danh sách người dùng' })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    example: 1,
+    description: 'Số trang (mặc định = 1)',
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    example: 10,
+    description: 'Số bản ghi mỗi trang (tối đa 50)',
+  })
+  @ApiQuery({
+    name: 'sort',
+    required: false,
+    type: String,
+    example: 'createdAt:desc',
+    description: 'Sắp xếp theo field (vd: createdAt:desc)',
+  })
+  @ApiQuery({
+    name: 'filters',
+    required: false,
+    type: String,
+    example: '{"status":"active"}',
+    description: 'Bộ lọc dưới dạng JSON string',
+  })
+  @ApiOkResponse({
+    description: 'Danh sách người dùng phân trang',
+    type: InfinityPaginationResponseDto<User>,
+  })
   @HttpCode(HttpStatus.OK)
   async findAll(
     @Query() query: QueryUserDto,
